@@ -7,4 +7,5 @@ Download project, and build using Xcode
 ## Api used
 [GitHub - NovelCOVID/API](https://github.com/NovelCOVID/API)
 
-![](https://github.com/martinm/CoronaStats/blob/master/ss-light.PNG) ![](https://github.com/martinm/CoronaStats/blob/master/ss-dark.PNG)
+![](https://github.com/martinm/CoronaStats/blob/master/ss-light.PNG =562x1215) 
+![](https://github.com/martinm/CoronaStats/blob/master/ss-dark.PNG =562x1215)
