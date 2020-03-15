@@ -9,8 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var allData: AllData = AllData()
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            
+            VStack {
+                Text("\(allData.cases)")
+                    .font(.largeTitle)
+                Text("total cases")
+            }
+            HStack {
+                VStack {
+                    Text("\(allData.recovered)")
+                        .font(.largeTitle)
+                    Text("total recovered")
+                }
+                .foregroundColor(.green)
+                Spacer()
+                VStack {
+                    Text("\(allData.deaths)")
+                        .font(.largeTitle)
+                    Text("total deaths")
+                }
+                .foregroundColor(.red)
+            }
+            .padding()
+            
+        }
+        .onAppear() {
+            AllDataApi().getPost { (data) in
+                self.allData = data
+            }
+        }
     }
 }
 
