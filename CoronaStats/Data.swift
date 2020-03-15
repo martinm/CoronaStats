@@ -21,6 +21,17 @@ struct AllData: Codable, Identifiable {
     }
 }
 
+struct Country: Codable, Identifiable {
+    let id = UUID()
+    var country: String
+    var cases: Int
+    var todayCases: Int
+    var deaths: Int
+    var todayDeaths: Int
+    var recovered: Int
+    var critical: Int
+}
+
 class AllDataApi {
     func getPost(completion: @escaping (AllData) -> ()) {
         guard let url = URL(string: "https://corona.lmao.ninja/all") else {
@@ -37,4 +48,23 @@ class AllDataApi {
         }
         .resume()
     }
+}
+
+class CountriesDataApi {
+    func getPost(completion: @escaping ([Country]) -> ()) {
+        guard let url = URL(string: "https://corona.lmao.ninja/countries") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let data = try! JSONDecoder().decode([Country].self, from: data!)
+            
+            DispatchQueue.main.async {
+                completion(data)
+            }
+            
+        }
+        .resume()
+    }
+    
 }
