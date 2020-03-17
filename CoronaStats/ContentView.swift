@@ -11,6 +11,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var allData: AllData = AllData()
     @State var countries: [Country] = []
+    @State var formatter = DateFormatter()
+    @State var lastUpdateDate = ""
 
     var body: some View {
         VStack {
@@ -36,6 +38,17 @@ struct ContentView: View {
             }
             .padding()
             
+            HStack() {
+            Button(action: {
+                self.loadData()
+            }) {
+                Text("last updated: \(lastUpdateDate)")
+                Image(systemName: "arrow.clockwise")
+            }
+                .padding(.leading, 15)
+                Spacer()
+            }
+
             List(countries) { country in
                 VStack(alignment: .leading) {
                         Text(country.country)
@@ -70,13 +83,19 @@ struct ContentView: View {
             }
         }
         .onAppear() {
-            AllDataApi().getPost { (data) in
-                self.allData = data
-            }
-            
-            CountriesDataApi().getPost { (data) in
-                self.countries = data
-            }
+            self.loadData()
+        }
+    }
+    
+    func loadData() {
+        self.formatter.timeStyle = .medium
+        self.lastUpdateDate = self.formatter.string(from: Date())
+        AllDataApi().getData { (data) in
+            self.allData = data
+        }
+        
+        CountriesDataApi().getData { (data) in
+            self.countries = data
         }
     }
 }
