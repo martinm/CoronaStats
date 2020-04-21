@@ -34,7 +34,7 @@ struct Country: Codable, Identifiable {
 
 class AllDataApi {
     func getData(completion: @escaping (AllData) -> ()) {
-        guard let url = URL(string: "https://corona.lmao.ninja/all") else {
+        guard let url = URL(string: "https://corona.lmao.ninja/v2/all") else {
             return
         }
         
@@ -52,7 +52,7 @@ class AllDataApi {
 
 class CountriesDataApi {
     func getData(completion: @escaping ([Country]) -> ()) {
-        guard let url = URL(string: "https://corona.lmao.ninja/countries") else {
+        guard let url = URL(string: "https://corona.lmao.ninja/v2/countries") else {
             return
         }
         
